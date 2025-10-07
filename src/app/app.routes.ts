@@ -1,18 +1,17 @@
 import { Routes } from '@angular/router';
 
-// Corrected import paths to match your file names
-import { LoginComponent } from './pages/login/login';
-import { GameSetupComponent } from './pages/game-setup/game-setup';
-import { GameBoardComponent } from './pages/game-board/game-board';
-import { UserStatsComponent } from './pages/user-stats/user-stats';
+// Update the class names in the {} to match what's in your files
+import { Login } from './pages/login/login';
+import { GameSetup } from './pages/game-setup/game-setup';
+import { GameBoard } from './pages/game-board/game-board';
+import { UserStats } from './pages/user-stats/user-stats';
 
 export const routes: Routes = [
-  // When the app loads, redirect the empty path to the login page
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
-  // Define the path for each page
-  { path: 'login', component: LoginComponent },
-  { path: 'setup', component: GameSetupComponent },
-  { path: 'game', component: GameBoardComponent },
-  { path: 'stats', component: UserStatsComponent },
+  // Also update the component names here
+  { path: 'login', component: Login },
+  { path: 'setup', component: GameSetup },
+  { path: 'game', component: GameBoard },
+  { path: 'stats', component: UserStats },
 ];
