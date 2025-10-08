@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
-// Interface for the card data we care about
+// Interface for the card data we want
 export interface PokemonCard {
   id: string;
   name: string;

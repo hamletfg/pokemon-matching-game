@@ -1,26 +1,66 @@
 <div class="board-container">
   <mat-card>
-    <mat-card-header>
-      <mat-card-title>Pokémon Matching Game</mat-card-title>
-    </mat-card-header>
     <mat-card-content>
-      <!-- Show a loading spinner while we wait for settings -->
+      <!-- Loading Spinner -->
       <div *ngIf="isLoading; else gameContent" class="loading-container">
         <mat-spinner></mat-spinner>
-        <p>Loading game...</p>
+        <p>Fetching Pokémon cards...</p>
       </div>
 
-      <!-- This content will be shown once the settings are loaded -->
+      <!-- Main Game Content -->
       <ng-template #gameContent>
-        <div class="settings-display">
-          <h3>Game Settings:</h3>
-          <p><strong>Players:</strong> {{ numPlayers }}</p>
-          <p><strong>Pairs to Match:</strong> {{ numMatches }}</p>
-          <p><strong>Card Set:</strong> {{ pokemonSet }}</p>
+        <div class="game-layout">
+          <!-- Scoreboard -->
+          <div class="scoreboard">
+            <h2>Scores</h2>
+            <div
+              *ngFor="let player of players; let i = index"
+              class="player-score"
+              [class.active-player]="i === currentPlayerIndex"
+            >
+              <mat-icon>person</mat-icon>
+              <span>{{ player.name }}: {{ player.score }}</span>
+            </div>
+            <p *ngIf="numPlayers > 1" class="turn-indicator">
+              Turn: {{ players[currentPlayerIndex]?.name }}
+            </p>
+          </div>
+
+          <!-- Game Grid -->
+          <div class="game-grid">
+            <div
+              *ngFor="let card of gameCards"
+              class="card"
+              [class.flipped]="card.state === 'flipped' || card.state === 'matched'"
+              [class.matched]="card.state === 'matched'"
+              (click)="flipCard(card)"
+            >
+              <div class="card-face card-back">
+                <img
+                  src="https://assets.pokemon.com/assets/cms2/img/misc/gus/buttons/logo-pokemon-79x45.png"
+                  alt="Card Back"
+                />
+              </div>
+              <div class="card-face card-front">
+                <img [src]="card.images.small" [alt]="card.name" />
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="game-grid-placeholder">
-          <p>The game board with {{ numMatches * 2 }} cards will go here!</p>
+        <!-- Game Over Overlay -->
+        <div *ngIf="isGameOver" class="game-over-overlay">
+          <div class="game-over-content">
+            <h1>Game Over!</h1>
+            <h3>Final Scores:</h3>
+            <div *ngFor="let player of players" class="final-score">
+              <span>{{ player.name }}: {{ player.score }}</span>
+            </div>
+            <div class="game-over-actions">
+              <button mat-raised-button color="primary" (click)="resetGame()">Play Again</button>
+              <button mat-stroked-button color="accent" (click)="goHome()">New Game</button>
+            </div>
+          </div>
         </div>
       </ng-template>
     </mat-card-content>
