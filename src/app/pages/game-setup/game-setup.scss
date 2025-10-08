@@ -1,0 +1,31 @@
+.setup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+mat-card {
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-field {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-around;
+}
+
+.full-width {
+  width: 100%;
+}

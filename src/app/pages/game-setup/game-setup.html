@@ -1,1 +1,58 @@
-<p>game-setup works!</p>
+<div class="setup-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Game Setup</mat-card-title>
+      <mat-card-subtitle>Configure your new Pokémon matching game</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- The form is bound to our gameSetupForm FormGroup in the component class -->
+      <form [formGroup]="gameSetupForm" (ngSubmit)="startGame()">
+        <!-- Number of Players Selection -->
+        <div class="form-field">
+          <label id="player-radio-group-label" class="form-label">Number of Players:</label>
+          <mat-radio-group
+            aria-labelledby="player-radio-group-label"
+            class="radio-group"
+            formControlName="numPlayers"
+          >
+            <mat-radio-button class="radio-button" *ngFor="let i of [1, 2, 3, 4]" [value]="i">
+              {{ i }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <!-- Number of Matches Selection -->
+        <div class="form-field">
+          <label id="matches-slider-label" class="form-label">
+            Number of Pairs to Match: {{ gameSetupForm.get('numMatches')?.value }}
+          </label>
+          <mat-slider min="5" max="20" step="1" discrete>
+            <input matSliderThumb formControlName="numMatches" />
+          </mat-slider>
+        </div>
+
+        <!-- Pokémon Set Selection -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Pokémon Card Set</mat-label>
+          <mat-select formControlName="pokemonSet">
+            <mat-option *ngFor="let set of pokemonSets" [value]="set.id">
+              {{ set.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="startGame()"
+        [disabled]="!gameSetupForm.valid"
+      >
+        Start Game
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
