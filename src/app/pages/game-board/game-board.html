@@ -1,1 +1,28 @@
-<p>game-board works!</p>
+<div class="board-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Pokémon Matching Game</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Show a loading spinner while we wait for settings -->
+      <div *ngIf="isLoading; else gameContent" class="loading-container">
+        <mat-spinner></mat-spinner>
+        <p>Loading game...</p>
+      </div>
+
+      <!-- This content will be shown once the settings are loaded -->
+      <ng-template #gameContent>
+        <div class="settings-display">
+          <h3>Game Settings:</h3>
+          <p><strong>Players:</strong> {{ numPlayers }}</p>
+          <p><strong>Pairs to Match:</strong> {{ numMatches }}</p>
+          <p><strong>Card Set:</strong> {{ pokemonSet }}</p>
+        </div>
+
+        <div class="game-grid-placeholder">
+          <p>The game board with {{ numMatches * 2 }} cards will go here!</p>
+        </div>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</div>
