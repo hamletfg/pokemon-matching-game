@@ -15,24 +15,50 @@ mat-card {
   justify-content: center;
   align-items: center;
   padding: 40px;
+  min-height: 300px;
 }
 
-.settings-display {
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 20px;
-  border: 1px solid #e0e0e0;
-
-  p {
-    margin: 4px 0;
-  }
+// Grid layout for the cards
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 16px;
+  perspective: 1000px; // Needed for the 3D flip effect
 }
 
-.game-grid-placeholder {
-  border: 2px dashed #ccc;
+// Individual card container
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 7; // Classic card aspect ratio
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
   border-radius: 8px;
-  padding: 40px;
-  text-align: center;
-  color: #757575;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+// This class will be added dynamically to flip the card
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+// Styling for the faces of the card (front and back)
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; // Hides the back of the element when it's facing away
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-front {
+  transform: rotateY(180deg); // The front starts rotated away from view
+}
+
+.card-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

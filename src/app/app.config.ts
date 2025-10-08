@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()), // <-- Add this provider
+    provideHttpClient(withInterceptorsFromDi()),
 
     // 2. Add the providers for Firebase to the providers array
     provideFirebaseApp(() => initializeApp(environment.firebase)),
